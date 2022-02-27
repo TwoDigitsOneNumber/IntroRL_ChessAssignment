@@ -1,0 +1,10 @@
+to get a good mark: good/correct/precise interpretation and demonstrate knowledge of the topic/theory
+to get a 6: do a bit out of the box thinking (go a bit beyond the course)
+focus is on the report, the code is mainly to prove we solved the task. However, we can highlight certain aspects of the code if we think we did something cool.
+
+note that all this we learned only holds for markovian processes.
+
+use Adam.
+
+
+Adam deals better with stochastisity than vanilla gradient descent.

@@ -1,0 +1,4 @@
+*.xopp
+slides/*
+labs/*
+backprop.pdf
