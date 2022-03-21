@@ -1,5 +1,15 @@
+# file types
 *.xopp
+*.pyc
+
+# folders
 slides/*
 labs/*
+.ipynb_checkpoints/*
+__pycache__/*
+
+# specific files
 backprop.pdf
 notes.txt
+chess_vis.py
+Assignment_Zheng*.ipynb

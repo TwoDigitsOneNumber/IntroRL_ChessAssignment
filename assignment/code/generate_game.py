@@ -6,7 +6,7 @@ from degree_freedom_queen import *
 
 def generate_game(size_board):
     """
-    This function creates a new chess game with three pieces at random locations. The enemy King has no interaction with
+    This function creates a new chess game with three pieces at random locations. The enemy King has no interaction 
     with our King and Queen. Positions range from 0 to 4
     :param size_board:
     :return:
