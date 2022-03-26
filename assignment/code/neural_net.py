@@ -1,9 +1,15 @@
+# import libraries
+from types import MethodDescriptorType
 import numpy as np
 from tqdm.notebook import tqdm
-from Chess_env import *
 import os
 import json
 import time
+import random
+from collections import namedtuple, deque
+
+# import from files
+from Chess_env import *
 
 
 
@@ -92,14 +98,37 @@ def act_f_and_gradient(activation_function="relu"):
 
 
 
+# ===== Replay Memory for Experience Replay (with DQN) =====
+
+Transition = namedtuple('Transition', ("state", "action", "reward", "next_state", "done"))
+
+class ReplayMemory(object):
+    def __init__(self, capacity):
+        self.memory = deque(maxlen=capacity)
+
+    def push(self, *args):
+        self.memory.append(Transition(*args))
+
+    def sample(self, batch_size):
+        # if less data than batch size, return all data
+        if len(self) < batch_size:
+            batch_size = len(self)
+        return random.sample(self.memory, batch_size)
+
+    def __len__(self):
+        return len(self.memory)
+
+
+
 
 # ===== Neural Network ======
 
 class NeuralNetwork(object):
-    def __init__(self, N_in, N_h, N_a, activation_function_1="relu", activation_function_2=None, method="qlearning", seed=None):
+
+    def __init__(self, N_in, N_h, N_a, activation_function_1="relu", activation_function_2=None, method="qlearning", seed=None, capacity=100_000, C=100):
         """
         activation functions: "relu", "sigmoid", "tanh", None
-        methods: "qlearning", "sarsa"
+        methods: "qlearning", "sarsa", "dqn"
         """
         self.D = N_in  # input dimension (without bias)
         self.K = N_h   # nr hidden neurons (without bias)
@@ -109,40 +138,66 @@ class NeuralNetwork(object):
         self.method = method
         self.seed = seed
 
+        if self.method == "dqn":
+            self.capacity = capacity
+            self.replay_memory = ReplayMemory(capacity)
+            self.C = C
+
         # set activation function and gradient function
+        self.act_f_1_name = activation_function_1
+        self.act_f_2_name = activation_function_2
         self.act_f_1, self.grad_act_f_1 = act_f_and_gradient(activation_function_1)
         self.act_f_2, self.grad_act_f_2 = act_f_and_gradient(activation_function_2)
 
 
-        # initialize the weights and biases
-        np.random.seed(seed)
+        # initialize the weights and biases and set grobal seed
+        rng = np.random.default_rng(seed=seed)
+
         # self.W1 = np.random.randn(self.K+1, self.D+1)/np.sqrt(self.D+1)  # standard normal distribution, shape: (K+1, D+1)
         # glorot/xavier normal initialization
-        self.W1 = np.random.randn(self.K+1, self.D+1)*np.sqrt(2/ (self.D+1 + self.K+1))  # standard normal distribution, shape: (K+1, D+1)
+        # self.W1 = np.random.randn(self.K+1, self.D+1)*np.sqrt(2/ (self.D+1 + self.K+1))  # standard normal distribution, shape: (K+1, D+1)
+        self.W1 = rng.standard_normal((self.K+1, self.D+1))*np.sqrt(2/ (self.D+1 + self.K+1))  # standard normal distribution, shape: (K+1, D+1)
         # self.W1 = np.random.randn(self.K+1, self.D+1)  # standard normal distribution, shape: (K+1, D+1)
 
         # self.W2 = np.random.randn(self.O, self.K+1)/np.sqrt(self.K+1)  # standard normal distribution, shape: (O, K+1)
         # glorot/xavier normal initialization
-        self.W2 = np.random.randn(self.O, self.K+1)*np.sqrt(2/ (self.K+1 + self.O))  # standard normal distribution, shape: (O, K+1)
+        self.W2 = rng.standard_normal((self.O, self.K+1))*np.sqrt(2/ (self.K+1 + self.O))  # standard normal distribution, shape: (O, K+1)
         # self.W2 = np.random.randn(self.O, self.K+1)  # standard normal distribution, shape: (O, K+1)
 
-    def forward(self, x):
+        if self.method == "dqn":
+            self.W1_target = np.copy(self.W1)
+            self.W2_target = np.copy(self.W2)
+
+
+    def forward(self, x, target=False):
         """
         x has shape: (D+1, 1) (constant bias 1 must be added beforehand added)
+        target: if True, use the weights of the target network
+
         returns:
             last logits (i.e. Qvalues) of shape (O, 1)
         """
 
+        if target:
+            W1 = np.copy(self.W1_target)
+            W2 = np.copy(self.W2_target)
+        else:
+            W1 = np.copy(self.W1)
+            W2 = np.copy(self.W2)
+
         # forward pass/propagation
-        a1 = self.W1 @ x
+        a1 = W1 @ x
         h1 = self.act_f_1(a1)
         h1[0,:] = 1  # set first row (bias to second layer) to 1 (this ignores the weights for the k+1th hidden neuron, because this should not exist; this allows to only use matrix multiplication and simplify the gradients as we only need 2 instead of 4)
-        a2 = self.W2 @ h1
+        a2 = W2 @ h1
         h2 = self.act_f_2(a2)
         return a1, h1, a2, h2
 
+
     def backward(self, R, x, Qvalues, Q_prime, a1, h1, a2, gamma, future_reward, action_binary_mask):
         """
+        backward for methods "qlearning" and "sarsa"
+
         x has shape (D+1, 1) (constant bias 1 must be added beforehand)
         set future_reward=True for future reward with gamma>0, False for immediate reward.
         Q_prime must be chosen according to the method on x_prime (on- or off-policy)
@@ -150,6 +205,8 @@ class NeuralNetwork(object):
 
         # backward pass/backpropagation
         # compute the gradient of the square loss with respect to the parameters
+        
+        # ===== compute TD error (aka delta) =====
 
         # make reward of shape (O, 1)
         R_rep = np.tile(R, (self.O, 1))
@@ -160,17 +217,62 @@ class NeuralNetwork(object):
         
         # update only action that was taken, i.e. all rows apart from the one corresponding to the action taken (action index) are 0
         delta = delta*action_binary_mask
+        
+
+        self.compute_gradients(delta, a1, h1, a2, x)
+        self.update_parameters(self.eta)
+
+    
+    def backward_dqn(self, batch, gamma):
+        """
+        backward for method "dqn"
+        """
+
+        # ===== compute targets y and feature matrix X =====
+
+        # turn batch into individual tuples, numpy arrays, or lists
+        states = batch.state
+        rewards = np.array(list(batch.reward))
+        actions = np.array(list(batch.action))
+        next_states = list(batch.next_state)
+        dones = np.array(list(batch.done))
+
+        # compute targets y and feature matrix X
+        y = np.zeros((self.O, len(dones)))
+        for j in np.arange(len(dones)):
+            if dones[j]:  # if done, set y_j = r_j
+                y[actions[j], j] = rewards[j]
+            else:
+                # compute Q_prime
+                Q_target = self.forward(next_states[j], target=True)[-1]
+                y[actions[j], j] = rewards[j] + gamma*np.max(Q_target)
+
+
+        # convert states to feature matrix X
+        X = np.hstack((states))
+
+
+        # ===== compute TD error (aka delta) =====
+
+        a1, h1, a2, Qvalues = self.forward(X)
+        delta = y - Qvalues  # -> shape (O, batch_size)
+
+        self.compute_gradients(delta, a1, h1, a2, X)
+        self.update_parameters(self.eta)
+
+
+    def compute_gradients(self, delta, a1, h1, a2, x):
+        # ===== compute gradient of the loss with respect to the weights =====
 
         # common part of the gradient  TODO: check dimensions
-        self.dL_da2 = delta * self.grad_act_f_2(a2)
+        self.dL_da2 = delta * self.grad_act_f_2(a2) 
 
         # gradient of loss wrt W2
         self.dL_dW2 = self.dL_da2 @ h1.T
 
         # gradient of loss wrt W1
-        self.dL_dW1 = ( self.W2.T @ self.dL_da2 * self.grad_act_f_1(a1) ) @ x.T
+        self.dL_dW1 = ( (self.W2.T @ self.dL_da2) * self.grad_act_f_1(a1) ) @ x.T
 
-        self.update_parameters(self.eta)
 
 
     def update_parameters(self, eta):
@@ -192,9 +294,10 @@ class NeuralNetwork(object):
 
 
 
-    def train(self, env, N_episodes, eta, epsilon_0, beta, gamma, alpha=0.001, gradient_clip=1):
+    def train(self, env, N_episodes, eta, epsilon_0, beta, gamma, alpha=0.001, gradient_clip=1, batch_size=32, run_number=None):
         """
         alpha is used as weight for the exponential moving average displayed during training.
+        batch_size is only used for the DQN method.
         """
 
         # add training hyper parameters
@@ -205,6 +308,8 @@ class NeuralNetwork(object):
         self.gamma = gamma
         self.alpha = alpha
         self.gradient_clip = gradient_clip
+        self.batch_size = batch_size
+
 
         training_start = time.time()
 
@@ -213,13 +318,14 @@ class NeuralNetwork(object):
             # initialize histories for important metrics
             self.R_history = np.full([self.N_episodes, 1], np.nan)
             self.N_moves_history = np.full([self.N_episodes, 1], np.nan)
-
             self.dL_dW1_norm_history = np.full([self.N_episodes, 1], np.nan)
             self.dL_dW2_norm_history = np.full([self.N_episodes, 1], np.nan)
 
             # progress bar
             episodes = tqdm(np.arange(self.N_episodes), unit="episodes")
-            m_k_previous = 0
+            ema_previous = 0
+
+            n_steps = 0
 
             for n in episodes:
 
@@ -241,7 +347,7 @@ class NeuralNetwork(object):
 
                 while Done==0:                           ## START THE EPISODE
 
-                    if self.method == "qlearning":
+                    if (self.method == "qlearning") or (self.method == "dqn"):
                         # compute Q values for the given state
                         a1, h1, a2, Qvalues = self.forward(X)  # -> shape (O, 1)
 
@@ -254,28 +360,47 @@ class NeuralNetwork(object):
                     X_prime = np.expand_dims(X_prime, axis=1)
                     X_prime = np.copy(np.vstack((np.array([[1]]), X_prime)))  # add bias term
 
+                    n_steps += 1
 
+                    if self.method == "dqn":
+
+                        # store the transition in memory
+                        self.replay_memory.push(X, A_ind, R, X_prime, Done)
+
+                        # sample a batch of transitions
+                        transactions = self.replay_memory.sample(self.batch_size)
+                        # turn list of transactions into transaction of lists
+                        batch = Transition(*zip(*transactions))
+
+                        # backward step and parameter update
+                        self.backward_dqn(batch, self.gamma)
                     
                     # update Q values indirectly by updating the weights and biases directly
 
                     if Done==1:  # THE EPISODE HAS ENDED, UPDATE...BE CAREFUL, THIS IS THE LAST STEP OF THE EPISODE
 
-                        # compute gradients and update weights
-                        self.backward(R, X, Qvalues, None, a1, h1, a2, None, future_reward=False, action_binary_mask=A_binary_mask)
+                        if (self.method == "qlearning") or (self.method == "sarsa"):
+                            # compute gradients and update weights
+                            self.backward(R, X, Qvalues, None, a1, h1, a2, None, future_reward=False, action_binary_mask=A_binary_mask)
 
                         # store history
                         # todo: record max possible reward per episode
-                        self.R_history[n]=np.copy(R)  # reward per episode
-                        self.N_moves_history[n]=np.copy(i)  # nr moves per episode
+                        self.R_history[n] = np.copy(R)  # reward per episode
+                        self.N_moves_history[n] = np.copy(i)  # nr moves per episode
 
                         # store norm of gradients
                         self.dL_dW1_norm_history[n] = np.linalg.norm(self.dL_dW1)
                         self.dL_dW2_norm_history[n] = np.linalg.norm(self.dL_dW2)
 
-                        # compute exponential moving average to display during training
-                        m_k = alpha*R + (1-alpha)*m_k_previous
-                        m_k_previous = m_k
-                        episodes.set_description(f"EMA Reward = {m_k:.2f}")
+                        # compute exponential moving average (EMA) to display during training
+                        ema = alpha*R + (1-alpha)*ema_previous
+                        if n == 0: # first episode
+                            ema = R
+                        ema_previous = ema
+                        if run_number is not None:
+                            episodes.set_description(f"Run = {run_number}; EMA Reward = {ema:.2f}")
+                        else:
+                            episodes.set_description(f"EMA Reward = {ema:.2f}")
 
                         break
 
@@ -297,8 +422,9 @@ class NeuralNetwork(object):
                             Q_prime = Qvalues_prime[A_ind_prime]
 
 
-                        # backpropagation and weight update
-                        self.backward(R, X, Qvalues, Q_prime, a1, h1, a2, gamma, future_reward=True, action_binary_mask=A_binary_mask)
+                        if (self.method == "qlearning") or (self.method == "sarsa"):
+                            # backpropagation and weight update
+                            self.backward(R, X, Qvalues, Q_prime, a1, h1, a2, self.gamma, future_reward=True, action_binary_mask=A_binary_mask)
 
                         
                         # NEXT STATE AND CO. BECOME ACTUAL STATE...     
@@ -309,11 +435,17 @@ class NeuralNetwork(object):
                             h1 = np.copy(h1_prime)
                             a2 = np.copy(a2_prime)
                             Qvalues = np.copy(Qvalues_prime)
-                        S=np.copy(S_prime)
-                        X=np.copy(X_prime)
-                        allowed_a=np.copy(allowed_a_prime)
+                        S = np.copy(S_prime)
+                        X = np.copy(X_prime)
+                        allowed_a = np.copy(allowed_a_prime)
                         
                         i += 1  # UPDATE COUNTER FOR NUMBER OF ACTIONS
+                    
+                    if (self.method == "dqn") and (n_steps % self.C == 0):
+                        # update target network every C steps
+                        self.W1_target = np.copy(self.W1)
+                        self.W2_target = np.copy(self.W2)
+
 
             training_end = time.time()
             self.training_time_in_seconds = training_end - training_start
@@ -329,11 +461,65 @@ class NeuralNetwork(object):
             return None
 
 
+    # TODO: implement evaluation function with small epsilon = 0.05. Does not learn anymore. -> get average reward (expected to be constant because environment is not inherently non-stationary)
+    def evaluate(self, env, n_episodes=1000, epsilon=0.05):
+
+        self.Mean_R_evaluation_history = np.full([n_episodes, 1], np.nan)
+        self.N_moves_evaluation_history = np.full([n_episodes, 1], np.nan)
+
+
+        try:
+            # initialize game
+            episodes = tqdm(np.arange(n_episodes), desc="episodes")
+            for n in episodes:
+
+                # initialize game
+                S, X, allowed_a, Done = env.Initialise_game()
+                X = np.expand_dims(X, axis=1)
+                X = np.copy(np.vstack((np.array([[1]]), X)))
+
+                # count steps per episode
+                i = 1
+                
+
+                while Done==0:
+                    # chose action
+                    Qvalues = self.forward(X)[-1]  # -> shape (O, 1)
+                    A_binary_mask, A_ind = EpsilonGreedy_Policy(Qvalues, allowed_a, epsilon)  # -> shape (O, 1)
+
+                    # take action and observe reward R and state S_prime
+                    S_prime, X_prime, allowed_a_prime, R, Done = env.OneStep(A_ind)
+
+                    if Done:
+                        # store/update results per episode
+                        self.R_evaluation_history[n] = np.copy(R)
+                        self.N_moves_evaluation_history[n] = np.copy(i)
+
+                        break
+
+                    else:
+                        # carry over state and action information
+                        S = np.copy(S_prime)
+                        X = np.copy(X_prime)
+                        allowed_a = np.copy(allowed_a_prime)
+                    
+                    i += 1  # update counter for number of actions/steps per episode
+                
+                # at end of a run, update metrics per run and update progress bar 
+
+        except KeyboardInterrupt as e:
+            pass
+
     
-    def save(self, name):
+    def save(self, name_extension=None):
         # create directory for the model
+        name = f"{self.method}_{self.act_f_1_name}_{self.act_f_2_name}"
+        if name_extension is not None:
+            name += f"_{name_extension}"
+
         path = f"models/{name}"
         if not os.path.isdir(path): os.mkdir(path)
+        print(f"saving to: {path}")
 
         # save weights
         np.save(f"{path}/W1.npy", self.W1)
@@ -345,41 +531,80 @@ class NeuralNetwork(object):
         np.save(f"{path}/training_history_dL_dW1_norm.npy", self.dL_dW1_norm_history)
         np.save(f"{path}/training_history_dL_dW2_norm.npy", self.dL_dW2_norm_history)
 
-        # save training parameters
+        # save training parameters and other general info
         params = {
+            "method": self.method,
             "N_episodes": self.N_episodes,
             "eta": self.eta,
             "epsilon_0": self.epsilon_0,
             "beta": self.beta,
             "gamma": self.gamma,
             "alpha": self.alpha,
-            "gradient_clip": self.gradient_clip,
+            # "gradient_clip": self.gradient_clip,
             "seed": self.seed,
             "D": self.D,
             "K": self.K,
             "O": self.O,
             "training_time_in_seconds": self.training_time_in_seconds
         }
+        if self.method == "dqn":
+            params["capacity"] = self.capacity
+            params["batch_size"] = self.batch_size
+            params["C"] = self.C
         with open(f"{path}/training_parameters.json", "w") as f:
             json.dump(params, f)
 
     
-    def load(self, name):
-        # read values and store in neural network instance
-        path = f"models/{name}"
+def load_from(method, act_f_1, act_f_2, name_extension=None):
 
-        # network weights
-        self.W1 = np.load(f"{path}/W1.npy")
-        self.W2 = np.load(f"{path}/W2.npy")
+    # read values and store in neural network instance
+    name = f"{method}_{act_f_1}_{act_f_2}"
+    if name_extension is not None:
+        name += f"_{name_extension}"
 
-        # network training history
-        self.history_R = np.load(f"{path}/history_R.npy")
-        self.history_N_moves = np.load(f"{path}/history_N_moves.npy")
-        self.history_dL_dW1_norm = np.load(f"{path}/history_dL_dW1_norm.npy")
-        self.history_dL_dW2_norm = np.load(f"{path}/history_dL_dW2_norm.npy")
+    path = f"models/{name}"
+    print(f"loading from: {path}")
 
-        # network training parameters
-        params = json.load(f"{path}/training_parameters.json")
+    # initialize neural network
+    nn = NeuralNetwork(0,0,0, activation_function_1=act_f_1, activation_function_2=act_f_2, method=method)
+
+    # network weights
+    nn.W1 = np.load(f"{path}/W1.npy")
+    nn.W2 = np.load(f"{path}/W2.npy")
+
+    # network training history
+    nn.R_history = np.load(f"{path}/training_history_R.npy")
+    nn.N_moves_history = np.load(f"{path}/training_history_N_moves.npy")
+    nn.dL_dW1_norm_history = np.load(f"{path}/training_history_dL_dW1_norm.npy")
+    nn.dL_dW2_norm_history = np.load(f"{path}/training_history_dL_dW2_norm.npy")
+
+    # network training parameters
+    with open(f"{path}/training_parameters.json", "r") as f:
+        params = json.load(f)
+
         # set parameters to the network instance
-        for i in params.keys():
-            self.i = params[i]
+        nn.method = params["method"]
+        nn.N_episodes = int(params["N_episodes"])
+        nn.eta = float(params["eta"])
+        nn.epsilon_0 = float(params["epsilon_0"])
+        nn.beta = float(params["beta"])
+        nn.gamma = float(params["gamma"])
+        nn.alpha = float(params["alpha"])
+        # nn.gradient_clip = float(params["gradient_clip"])
+        nn.seed = int(params["seed"])
+        nn.D = int(params["D"])
+        nn.K = int(params["K"])
+        nn.O = int(params["O"])
+        nn.training_time_in_seconds = float(params["training_time_in_seconds"])
+
+        if nn.method == "dqn":
+            nn.capacity = int(params["capacity"])
+            nn.batch_size = int(params["batch_size"])
+            nn.C = int(params["C"])
+
+
+    if nn.method == "dqn":
+        nn.W1_target = np.copy(nn.W1)
+        nn.W2_target = np.copy(nn.W2)
+
+    return nn

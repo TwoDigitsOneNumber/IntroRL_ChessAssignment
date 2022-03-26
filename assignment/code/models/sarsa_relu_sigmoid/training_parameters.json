@@ -1,1 +1,0 @@
-{"N_episodes": 10000, "eta": 0.0035, "epsilon_0": 0.2, "beta": 5e-05, "gamma": 0.85, "alpha": 0.001, "gradient_clip": 1, "seed": 21, "nr_input_nodes": 58, "nr_hidden_nodes": 200, "nr_output_nodes": 32}
