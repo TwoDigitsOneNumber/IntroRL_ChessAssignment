@@ -22,14 +22,12 @@
 \BIBdecl
 
 \bibitem{sutton1984}
-R.~S. Sutton, ``Temporal credit assignment in reinforcement learning,'' 1984.
+R.~S. Sutton, ``Temporal credit assignment in reinforcement learning,'' Ph.D.
+  dissertation, 1984.
 
 \bibitem{sutton2018}
-\BIBentryALTinterwordspacing
 R.~S. Sutton and A.~G. Barto, \emph{Reinforcement Learning: An Introduction},
-  2nd~ed.\hskip 1em plus 0.5em minus 0.4em\relax The MIT Press, 2018. [Online].
-  Available: \url{http://incompleteideas.net/book/the-book-2nd.html}
-\BIBentrySTDinterwordspacing
+  2nd~ed.\hskip 1em plus 0.5em minus 0.4em\relax The MIT Press, 2018.
 
 \bibitem{dqn2015}
 \BIBentryALTinterwordspacing

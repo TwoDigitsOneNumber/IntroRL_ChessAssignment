@@ -12,42 +12,42 @@ Database file #2: ./Bibliography.bib
 -- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
-Warning--empty booktitle in sutton1984
+Warning--missing school in sutton1984
 
 Done.
 You've used 6 entries,
             4024 wiz_defined-function locations,
-            1218 strings with 15743 characters,
-and the built_in function-call counts, 4297 in all, are:
+            1218 strings with 15734 characters,
+and the built_in function-call counts, 4210 in all, are:
 = -- 330
 > -- 142
 < -- 17
 + -- 70
 - -- 32
-* -- 223
-:= -- 669
+* -- 219
+:= -- 662
 add.period$ -- 12
 call.type$ -- 6
 change.case$ -- 7
 chr.to.int$ -- 30
 cite$ -- 7
-duplicate$ -- 319
-empty$ -- 349
+duplicate$ -- 310
+empty$ -- 325
 format.name$ -- 36
-if$ -- 967
+if$ -- 942
 int.to.chr$ -- 0
 int.to.str$ -- 6
 missing$ -- 66
-newline$ -- 49
+newline$ -- 47
 num.names$ -- 6
-pop$ -- 170
+pop$ -- 162
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 341
+skip$ -- 332
 stack$ -- 0
 substring$ -- 83
-swap$ -- 233
+swap$ -- 236
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 5
@@ -55,5 +55,5 @@ type$ -- 6
 warning$ -- 1
 while$ -- 11
 width$ -- 7
-write$ -- 87
+write$ -- 85
 (There was 1 warning)
