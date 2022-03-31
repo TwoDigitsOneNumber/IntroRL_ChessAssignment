@@ -147,7 +147,7 @@ In order to address all tasks, we divided the tasks into several independent exp
 
 Since the seeded runs are heavily influenced by the choice of the seed, we could end up with anything between a very lucky and well performing seed, or with a very unlucky one. Also the interpretation of the seeded runs is more difficult as we just have one run for each algorithm. Therefore, we decided to perform a simulation study and complete 30 non-seeded runs for each algorithm in order to get a better idea of how the algorithms perform on average. For computational reasons we limited these runs to 40000 episodes as we realized with test runs that by then most of the training progress has already taken place.
 
-To analyze the impact of the hyper-parameters $\beta$ and $\gamma$\footnote{Answer to task 4.} we trained 49 agents with different combinations for $\beta$ and $\gamma$ but keeping all other hyper-parameters and model architecture identical. We chose SARSA for this experiment as we found it to have very low variance between its unseeded runs, which makes it an ideal candidate for comparing individual runs (see Figures~\ref{fig:30runs_reward} and \ref{fig:30runs_n_moves}). These runs are seeded identically to the seeded runs mentioned above.
+To analyze the impact of the hyper-parameters $\beta$ and $\gamma$\footnote{Answer to task 4.} we trained 49 agents with different combinations for $\beta$ and $\gamma$ but keeping all other hyper-parameters and model architecture identical. We chose SARSA for this experiment as we found it to have very low variance between its unseeded runs, which makes it an ideal candidate for comparing individual runs. These runs are seeded identically to the seeded runs mentioned above.
 
 
 
@@ -221,7 +221,7 @@ As suggested by Mnih et al. \cite{atari2013, dqn2015}, DQN\footnote{Answer to ta
 
 \subsection{Simulation Study (Non-seeded Runs)}
 
-We can confirm that the qualitative results from the seeded runs reasonably well represent the average case. The only notable exception being Q-Learning, for which most runs performed equally well to the seeded run, but some runs experienced huge increases in the number of steps, which influenced the average run dramatically, leading to an average of about 23 moves per episode after 40000 episodes. For the learning curves see Figures~\ref{fig:30runs_reward} and \ref{fig:30runs_n_moves} in the Appendix. 
+We can confirm that the qualitative results from the seeded runs reasonably well represent the average case. The only notable exception being Q-Learning, for which most runs performed equally well to the seeded run, but some runs experienced huge increases in the number of steps, which influenced the average run dramatically, leading to an average of about 23 moves per episode after 40000 episodes.
 
 We observed that DQN and SARSA show very comparable learning curves with DQN showing slightly faster convergence in the first 5000 episodes. SARSA showed the lowest variance in all runs and seems to be a very stable algorithm. Q-Learning on the other hand showed clear signs of divergence as for some runs the rewards consistently dropped while the number of moves consistently increased. This shows that the measures taken by Mnih et al. \cite{dqn2015} to combat the disadvantages of Q-Learning worked and increased the stability as well as the convergence speed. We were able to verify that the gradients of the Q-Learning agents were a lot less stable than the gradients of the other agents. However, using the Glorot initialization \cite{glorot2010} helped prevent exploding gradients from occurring.
 
@@ -286,45 +286,46 @@ In order to reproduce the results presented in this report we provide the code o
 
 
 
-\begin{figure}[htbp!]
-    \centering
-    \begin{subfigure}[]{.45\textwidth}
-        \includegraphics[width=\textwidth]{../figures/rewards_30_runs_sarsa.png}
-        \caption{}
-    \end{subfigure}
-    \begin{subfigure}[]{.45\textwidth}
-        \includegraphics[width=\textwidth]{../figures/rewards_30_runs_qlearning.png}
-        \caption{}
-    \end{subfigure}
-    \begin{subfigure}[]{.45\textwidth}
-        \includegraphics[width=\textwidth]{../figures/rewards_30_runs_dqn.png}
-        \caption{}
-    \end{subfigure}
-    \caption{Expected moving averages (EMA) of the rewards per episode for 30 runs for each algorithm (SARSA, Q-Learning, DQN). The red line depicts the EMA of the average across the 30 runs.}
-    \label{fig:30runs_reward}
-\end{figure}
+% \begin{figure}[htbp!]
+%     \centering
+%     \begin{subfigure}[]{.45\textwidth}
+%         \includegraphics[width=\textwidth]{../figures/rewards_30_runs_sarsa.png}
+%         \caption{}
+%     \end{subfigure}
+%     \begin{subfigure}[]{.45\textwidth}
+%         \includegraphics[width=\textwidth]{../figures/rewards_30_runs_qlearning.png}
+%         \caption{}
+%     \end{subfigure}
+%     \begin{subfigure}[]{.45\textwidth}
+%         \includegraphics[width=\textwidth]{../figures/rewards_30_runs_dqn.png}
+%         \caption{}
+%     \end{subfigure}
+%     \caption{Expected moving averages (EMA) of the rewards per episode for 30 runs for each algorithm (SARSA, Q-Learning, DQN). The red line depicts the EMA of the average across the 30 runs.}
+%     \label{fig:30runs_reward}
+% \end{figure}
     
 
-\begin{figure}[htbp!]
-    \centering
-    \begin{subfigure}[]{.45\textwidth}
-        \includegraphics[width=\textwidth]{../figures/n_moves_30_runs_sarsa.png}
-        \caption{}
-    \end{subfigure}
-    \begin{subfigure}[]{.45\textwidth}
-        \includegraphics[width=\textwidth]{../figures/n_moves_30_runs_qlearning.png}
-        \caption{}
-    \end{subfigure}
-    \begin{subfigure}[]{.45\textwidth}
-        \includegraphics[width=\textwidth]{../figures/n_moves_30_runs_dqn.png}
-        \caption{}
-    \end{subfigure}
-    \caption{Expected moving averages (EMA) of the number of moves per episode 30 runs for each algorithm (SARSA, Q-Learning, DQN). The red line depicts the EMA of the average across the 30 runs. The blue area depicts the EMA of the 1 standard deviation ($\sigma$) confidence interval (CI) of the 30 runs.}
-    \label{fig:30runs_n_moves}
-\end{figure}
+% \begin{figure}[htbp!]
+%     \centering
+%     \begin{subfigure}[]{.45\textwidth}
+%         \includegraphics[width=\textwidth]{../figures/n_moves_30_runs_sarsa.png}
+%         \caption{}
+%     \end{subfigure}
+%     \begin{subfigure}[]{.45\textwidth}
+%         \includegraphics[width=\textwidth]{../figures/n_moves_30_runs_qlearning.png}
+%         \caption{}
+%     \end{subfigure}
+%     \begin{subfigure}[]{.45\textwidth}
+%         \includegraphics[width=\textwidth]{../figures/n_moves_30_runs_dqn.png}
+%         \caption{}
+%     \end{subfigure}
+%     \caption{Expected moving averages (EMA) of the number of moves per episode 30 runs for each algorithm (SARSA, Q-Learning, DQN). The red line depicts the EMA of the average across the 30 runs. The blue area depicts the EMA of the 1 standard deviation ($\sigma$) confidence interval (CI) of the 30 runs.}
+%     \label{fig:30runs_n_moves}
+% \end{figure}
 
 
-\lstinputlisting[caption={Object oriented implementation of the Neural Networks, which can be instantiated with specifications for the model architecture and a method: ``sarsa'', ``qlearning'' or ``dqn''. The training loop will adapt automatically.}, label=code:neural_net]{../code/neural_net.py}
+\lstinputlisting[caption={Object oriented implementation of the neural networks, which can be instantiated with specifications for the model architecture and a method: ``sarsa'', ``qlearning'' or ``dqn''. The training loop will adapt automatically.}, label=code:neural_net]{../code/neural_net.py}
 
+\lstinputlisting[caption={Helper functions used throughout the implementation of the neural network and the notebooks, where the experiments were conducted.}, label=code:helper_functions]{../code/helper_functions.py}
 
 \end{document}
