@@ -2,7 +2,7 @@
 \BOOKMARK [1][-]{section.2}{Methods}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{Environment}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{SARSA and Q-LearningAnswer to task 1.}{section.2}% 4
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Temporal-Difference Algorithms}{subsection.2.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Temporal-Difference Methods}{subsection.2.2}% 5
 \BOOKMARK [3][-]{subsubsection.2.2.2}{On-policy vs. Off-policy}{subsection.2.2}% 6
 \BOOKMARK [3][-]{subsubsection.2.2.3}{Advangages and Disadvantages}{subsection.2.2}% 7
 \BOOKMARK [2][-]{subsection.2.3}{Experience ReplayAnswer to ``group only'' task 2.}{section.2}% 8

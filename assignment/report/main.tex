@@ -46,7 +46,7 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Chess Assignment\\
+\title{Tackling Chess with Deep Reinforcement Learning\\
 {\footnotesize Introduction to Reinforcement Learning (Spring 2022). Source code available at:
  \href{https://github.com/TwoDigitsOneNumber/IntroRL\_ChessAssignment}{https://github.com/TwoDigitsOneNumber/IntroRL\_ChessAssignment}}
 }
@@ -78,7 +78,7 @@
 \section{Introduction}\label{sec:introduction}
 
 
-In this assignment, we explore three different deep reinforcement learning algorithms to learn how to play a simplified version of chess, which can be thought of as a special instance of an endgame. These three algorithms are SARSA, Q-Learning and DQN\footnote{SARSA serves as answer to task 3 and DQN serves as answer to task 5.}. We will first provide a general look over our methodology (see Section~\ref{sec:methods}) and later discuss the result obtained in our experiments (see Section~\ref{sec:results}).
+In this assignment we explore three different deep reinforcement learning algorithms to learn how to play a simplified version of chess, which can be thought of as a special instance of an endgame. These three algorithms are SARSA, Q-Learning and DQN\footnote{SARSA serves as answer to task 3 and DQN serves as answer to task 5. Q-Learning is an additional method beyond what was asked.}. We will first provide a general look over our methodology (see Section~\ref{sec:methods}) and later discuss the result obtained in our experiments (see Section~\ref{sec:results}).
 
 The focus of this report lies on comparing these three algorithms in theory and in practise on the chess endgame environment. We further explored the impact of the hyper-parameters $\beta$ and $\gamma$, which represent the speed of the decaying trend for the learning rate and the discount factor respectively.
 
@@ -102,7 +102,7 @@ This chess setting, and chess in general, fulfills the Markov property and there
 \subsection{SARSA and Q-Learning\footnote{Answer to task 1.}}
 
 
-\subsubsection{Temporal-Difference Algorithms}
+\subsubsection{Temporal-Difference Methods}
 SARSA and Q-Learning are two very related model-free types of temporal-difference (TD) algorithms for learning expected rewards, also known as Q-values, when rewards are not immediate and possibly sparse. The learning takes place via interaction with an environment through trial and error. These Q-values are in general represented by an action-value function Q and, for finitely many state-action pairs $(s,a)$, can be considered as a Q-table where each state-action pair, $(s,a)$, maps to a single Q-value, thus providing an estimate of the quality of any given state-action pair $(s,a)$. In this assignment however we use neural networks to approximate the action-value function, which outputs the Q-values for all possible actions for any given state. This helps to avoid computing large Q-tables. All algorithms explored in this assignment, including DQN, require the environment to fulfill the Markov property.
 
 \subsubsection{On-policy vs. Off-policy}
@@ -159,7 +159,7 @@ To analyze the impact of the hyper-parameters $\beta$ and $\gamma$\footnote{Answ
 We implemented all algorithms from scratch according to Sutton et al. \cite{sutton2018} (SARSA and Q-Learning\footnote{SARSA as answer to task 3 and Q-Learning as additional algorithm.}) and Mnih et al. \cite{dqn2015} (DQN\footnote{Answer to task 5.}). For the implementation see file \verb"neural_net.py" on \href{https://github.com/TwoDigitsOneNumber/IntroRL_ChessAssignment}{GitHub} or Listing~\ref{code:neural_net}. All algorithms use a neural network with 58 input neurons, 200 hidden neurons and 32 output neurons, not including the biases for the input and hidden layer. The neural network automatically adds a constant input for the bias and the hidden layer. 
 The implementation treats the biases like any other weights and thus they are part of any matrix multiplication. We used a ReLU activation function for the hidden layer and no activation on the output layer.
 % A forward pass then looks like: $$ f(X) = g^{(2)}W^{(2)}g^{(1)}(W^{(1)}X), $$ where $X\in\mathbb{R}^{D+1\times N}$ represents the input.
-The weights were initialized using Glorot initialization \cite{glorot2010}, such that the weights are sampled from a normal distribution with mean 0 and variance $\frac{2}{n_{\text{in}} + n_{\text{out}}}$, where $n_\text{in}$ and $n_\text{out}$ denote to the number of input and output neurons of the respective layer. This helped preventing exploding gradients for the most part.\textcolor{red}{check again with results}
+The weights were initialized using Glorot initialization \cite{glorot2010}, such that the weights are sampled from a normal distribution with mean 0 and variance $\frac{2}{n_{\text{in}} + n_{\text{out}}}$, where $n_\text{in}$ and $n_\text{out}$ denote to the number of input and output neurons of the respective layer. This helped preventing exploding gradients for the most part.
 
 
 For all experiments we used the default hyperparameters provided in the \verb"Assignment.ipynb" file unless otherwise noted (see Table~\ref{tab:hyper-parameters}).
@@ -235,7 +235,7 @@ We can conclude that the seeded runs in our initial experiment truthfully repres
 
 Figure~\ref{fig:hyper-parameters}(a) depicts the rewards and number of moves per episode as a function of $\beta$ and $\gamma$. We can see that the reward increases monotonically as $\gamma$ is increases, suggesting that a value of $\gamma\in[0.80, 1)$ should be chosen for almost all values of $\beta$. This intuitively makes sense, as we have very sparse rewards and want the agent to ``backpropagate'' this reward through its sequence of actions. The left plot of Figure~\ref{fig:hyper-parameters} suggests that reducing $\gamma$ to a value in $[0.5, 0.8]$ can teach the SARSA agent to not reduce the number of steps. Intuitively this makes sense, as the only reward will be ``backpropagated'' less to earlier states and thus the agent will move faster towards setting the opponent's king checkmate.
 
-We can not see a clear relationship between $\beta$ and the rewards, apart from $\beta=0$ being an inferior choice for all values of $\gamma$. In Figure~\ref{fig:hyper-parameters}(b) we can see that the number of steps taken by the agent decreases drastically when increasing $\gamma$ from very low levels, but this effect seems larger for larger values of $\beta$. We can however see that there is a slight, but possibly insignificant, peak in the rewards around $\beta = 5\cdot 10^{-3}$. In summary, for reasonably chosen values of $\gamma$ the choice of $\beta$ seems to not have much of an influence for training periods of around 40000 episodes.
+The hyper-parameter $\beta$ controls how fast the exploration probability $\epsilon$ will decay and therefore controls how the agent will tackle the exploration-exploitation problem. We can not see a clear relationship between $\beta$ and the rewards, apart from $\beta=0$ being an inferior choice for all values of $\gamma$. In Figure~\ref{fig:hyper-parameters}(b) we can see that the number of steps taken by the agent decreases drastically when increasing $\gamma$ from very low levels, but this effect seems larger for larger values of $\beta$. We can however see that there is a slight, but possibly insignificant, peak in the rewards around $\beta = 5\cdot 10^{-3}$. In summary, for reasonably chosen values of $\gamma$ the choice of $\beta$ seems to not have much of an influence for training periods of around 40000 episodes.
 
 \begin{figure}
     \centering

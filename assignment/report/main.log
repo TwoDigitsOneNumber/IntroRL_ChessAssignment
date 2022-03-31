@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.8.21)  31 MAR 2022 23:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.8.21)  31 MAR 2022 23:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -457,11 +457,6 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\@ifnextchar' on input line 102.
 
-
-Underfull \hbox (badness 7397) in paragraph at lines 106--107
- \OT1/ptm/m/it/10 1) Temporal-Difference Al-go-rithms: [][][] \OT1/ptm/m/n/10 SARSA and Q-
- []
-
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
@@ -527,7 +522,7 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 242--248
  []$ 
  []
 
-(/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.bbl)
+(/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.bbl [4 <../figures/sarsa_Reward.png> <../figures/sarsa_Number of Moves.png>])
 Underfull \hbox (badness 3148) in paragraph at lines 284--285
 []\OT1/ptm/m/n/10 In or-der to re-pro-duce the re-sults pre-sented in this
  []
@@ -557,9 +552,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 284--285
 [][]\OT1/pcr/m/n/10 Assignment_Hyperparameter_Influence.ipynb[]\OT1/ptm/m/n/10 ,
  []
 
-[4 <../figures/sarsa_Reward.png> <../figures/sarsa_Number of Moves.png>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 328.
- (/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/../code/neural_net.py
+(/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/../code/neural_net.py
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 12.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
@@ -613,10 +607,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [9])
+ [9]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- (/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/../code/helper_functions.py [10])
+) (/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/../code/helper_functions.py [10])
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -629,25 +626,23 @@ Before submitting the final camera ready copy, remember to:
  process uses the appropriate paper size.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 332.
-[11
-
-]
+[11]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 332.
  (/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 332.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 332.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: D7785EA803630A61615F104463F19A1B;1473.
+(rerunfilecheck)             Checksum: C1995544E3318C4E52E6A07AA0B35B4B;1470.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 332.
  ) 
 Here is how much of TeX's memory you used:
  11906 strings out of 481239
  180318 string characters out of 5920377
- 953598 words of memory out of 5000000
+ 951598 words of memory out of 5000000
  26264 multiletter control sequences out of 15000+600000
  573317 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,9n,46p,1076b,1986s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,9n,46p,1076b,2049s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.11} has been referenced but does not exist, replaced by a fixed one
 
 pdfTeX warning (dest): name{Hfootnote.10} has been referenced but does not exist, replaced by a fixed one
@@ -671,7 +666,7 @@ pdfTeX warning (dest): name{Hfootnote.2} has been referenced but does not exist,
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on /home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.pdf (11 pages, 366421 bytes).
+Output written on /home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.pdf (11 pages, 366596 bytes).
 PDF statistics:
  1096 PDF objects out of 1200 (max. 8388607)
  1047 compressed objects within 11 object streams
