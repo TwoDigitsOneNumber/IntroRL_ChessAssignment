@@ -1,1 +1,1 @@
-{"method": "dqn", "N_episodes": 5000, "eta": 0.0035, "epsilon_0": 0.2, "beta": 5e-05, "gamma": 0.85, "alpha": 0.001, "seed": 21, "D": 58, "K": 200, "O": 32, "training_time_in_seconds": 53.618332386016846, "capacity": 100000, "batch_size": 64, "C": 10}
+{"method": "dqn", "N_episodes": 100000, "eta": 0.0035, "epsilon_0": 0.2, "beta": 5e-05, "gamma": 0.85, "alpha": 0.001, "seed": 21, "D": 58, "K": 200, "O": 32, "training_time_in_seconds": 605.5750651359558, "capacity": 100000, "batch_size": 32, "C": 10}

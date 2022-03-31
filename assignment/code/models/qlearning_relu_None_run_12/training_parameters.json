@@ -1,0 +1,1 @@
+{"method": "qlearning", "N_episodes": 40000, "eta": 0.0035, "epsilon_0": 0.2, "beta": 5e-05, "gamma": 0.85, "alpha": 0.001, "seed": null, "D": 58, "K": 200, "O": 32, "training_time_in_seconds": 282.6914098262787}

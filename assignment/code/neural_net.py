@@ -58,27 +58,28 @@ def EpsilonGreedy_Policy(Qvalues, allowed_a, epsilon):
 
 # ===== activation functions and it's derivatives ======
 
-# relu and it's derivative
+# relu and its derivative
 def relu(x):
     return np.maximum(0,x)
 
 def heaviside(x):
     return np.heaviside(x,0)
 
-# sigmoid and it's derivative
+# sigmoid and its derivative
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
 def gradient_sigmoid(x):
     return sigmoid(x) * (1 - sigmoid(x))
 
-# tanh and it's derivative
+# tanh and its derivative
 def tanh(x):
     return np.tanh(x)
 
 def gradient_tanh(x):
     return 1 - np.tanh(x)**2
 
+# identity and its derivative
 def identity(x):
     return x
 
@@ -151,17 +152,17 @@ class NeuralNetwork(object):
 
 
         # initialize the weights and biases and set grobal seed
-        rng = np.random.default_rng(seed=seed)
+        np.random.seed(self.seed)
 
         # self.W1 = np.random.randn(self.K+1, self.D+1)/np.sqrt(self.D+1)  # standard normal distribution, shape: (K+1, D+1)
         # glorot/xavier normal initialization
         # self.W1 = np.random.randn(self.K+1, self.D+1)*np.sqrt(2/ (self.D+1 + self.K+1))  # standard normal distribution, shape: (K+1, D+1)
-        self.W1 = rng.standard_normal((self.K+1, self.D+1))*np.sqrt(2/ (self.D+1 + self.K+1))  # standard normal distribution, shape: (K+1, D+1)
+        self.W1 = np.random.standard_normal((self.K+1, self.D+1))*np.sqrt(2/ (self.D+1 + self.K+1))  # standard normal distribution, shape: (K+1, D+1)
         # self.W1 = np.random.randn(self.K+1, self.D+1)  # standard normal distribution, shape: (K+1, D+1)
 
         # self.W2 = np.random.randn(self.O, self.K+1)/np.sqrt(self.K+1)  # standard normal distribution, shape: (O, K+1)
         # glorot/xavier normal initialization
-        self.W2 = rng.standard_normal((self.O, self.K+1))*np.sqrt(2/ (self.K+1 + self.O))  # standard normal distribution, shape: (O, K+1)
+        self.W2 = np.random.standard_normal((self.O, self.K+1))*np.sqrt(2/ (self.K+1 + self.O))  # standard normal distribution, shape: (O, K+1)
         # self.W2 = np.random.randn(self.O, self.K+1)  # standard normal distribution, shape: (O, K+1)
 
         if self.method == "dqn":
@@ -178,7 +179,7 @@ class NeuralNetwork(object):
             last logits (i.e. Qvalues) of shape (O, 1)
         """
 
-        if target:
+        if target == True:
             W1 = np.copy(self.W1_target)
             W2 = np.copy(self.W2_target)
         else:
@@ -460,56 +461,6 @@ class NeuralNetwork(object):
 
             return None
 
-
-    # TODO: implement evaluation function with small epsilon = 0.05. Does not learn anymore. -> get average reward (expected to be constant because environment is not inherently non-stationary)
-    def evaluate(self, env, n_episodes=1000, epsilon=0.05):
-
-        self.Mean_R_evaluation_history = np.full([n_episodes, 1], np.nan)
-        self.N_moves_evaluation_history = np.full([n_episodes, 1], np.nan)
-
-
-        try:
-            # initialize game
-            episodes = tqdm(np.arange(n_episodes), desc="episodes")
-            for n in episodes:
-
-                # initialize game
-                S, X, allowed_a, Done = env.Initialise_game()
-                X = np.expand_dims(X, axis=1)
-                X = np.copy(np.vstack((np.array([[1]]), X)))
-
-                # count steps per episode
-                i = 1
-                
-
-                while Done==0:
-                    # chose action
-                    Qvalues = self.forward(X)[-1]  # -> shape (O, 1)
-                    A_binary_mask, A_ind = EpsilonGreedy_Policy(Qvalues, allowed_a, epsilon)  # -> shape (O, 1)
-
-                    # take action and observe reward R and state S_prime
-                    S_prime, X_prime, allowed_a_prime, R, Done = env.OneStep(A_ind)
-
-                    if Done:
-                        # store/update results per episode
-                        self.R_evaluation_history[n] = np.copy(R)
-                        self.N_moves_evaluation_history[n] = np.copy(i)
-
-                        break
-
-                    else:
-                        # carry over state and action information
-                        S = np.copy(S_prime)
-                        X = np.copy(X_prime)
-                        allowed_a = np.copy(allowed_a_prime)
-                    
-                    i += 1  # update counter for number of actions/steps per episode
-                
-                # at end of a run, update metrics per run and update progress bar 
-
-        except KeyboardInterrupt as e:
-            pass
-
     
     def save(self, name_extension=None):
         # create directory for the model
@@ -563,7 +514,7 @@ def load_from(method, act_f_1, act_f_2, name_extension=None):
         name += f"_{name_extension}"
 
     path = f"models/{name}"
-    print(f"loading from: {path}")
+    # print(f"loading from: {path}")
 
     # initialize neural network
     nn = NeuralNetwork(0,0,0, activation_function_1=act_f_1, activation_function_2=act_f_2, method=method)
@@ -591,7 +542,10 @@ def load_from(method, act_f_1, act_f_2, name_extension=None):
         nn.gamma = float(params["gamma"])
         nn.alpha = float(params["alpha"])
         # nn.gradient_clip = float(params["gradient_clip"])
-        nn.seed = int(params["seed"])
+        try:
+            nn.seed = int(params["seed"])
+        except:
+            nn.seed = params["seed"]
         nn.D = int(params["D"])
         nn.K = int(params["K"])
         nn.O = int(params["O"])
