@@ -1,26 +1,19 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{- describe general setting}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{- touch on methods}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{- touch on results and conclusion}{section.1}% 4
-\BOOKMARK [1][-]{section.2}{Methods}{}% 5
-\BOOKMARK [2][-]{subsection.2.1}{Environment}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.2}{SARSA and Q-LearningAnswer to task 1.}{section.2}% 7
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Temporal-Difference Algorithms}{subsection.2.2}% 8
-\BOOKMARK [3][-]{subsubsection.2.2.2}{differences/what they have in common}{subsection.2.2}% 9
-\BOOKMARK [3][-]{subsubsection.2.2.3}{- advangages/disadvantages}{subsection.2.2}% 10
-\BOOKMARK [2][-]{subsection.2.3}{Experience ReplayAnswer to ``group only'' task 2.}{section.2}% 11
-\BOOKMARK [2][-]{subsection.2.4}{Deep Q-Networks \(DQN\)Answer to task 5: Describing the used method.}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.5}{Experiments}{section.2}% 13
-\BOOKMARK [2][-]{subsection.2.6}{Implementation and Hyper-parameters}{section.2}% 14
-\BOOKMARK [3][-]{subsubsection.2.6.1}{Implementation}{subsection.2.6}% 15
-\BOOKMARK [3][-]{subsubsection.2.6.2}{Hyper-Parameters}{subsection.2.6}% 16
-\BOOKMARK [1][-]{section.3}{Results}{}% 17
-\BOOKMARK [2][-]{subsection.3.1}{Seeded RunsAnswer to task 3 \(SARSA and Q-Learning as additional algorithm\) and 5 \(DQN\).}{section.3}% 18
-\BOOKMARK [2][-]{subsection.3.2}{Simulation Study \(Non-seeded Runs\)}{section.3}% 19
-\BOOKMARK [2][-]{subsection.3.3}{Hyper-parameters}{section.3}% 20
-\BOOKMARK [3][-]{subsubsection.3.3.1}{gamma}{subsection.3.3}% 21
-\BOOKMARK [3][-]{subsubsection.3.3.2}{beta}{subsection.3.3}% 22
-\BOOKMARK [1][-]{section.4}{Conclusion}{}% 23
-\BOOKMARK [1][-]{section*.4}{References}{}% 24
-\BOOKMARK [1][-]{section.5}{Appendix}{}% 25
-\BOOKMARK [2][-]{subsubsection.5.0.1}{Reproducibility}{section.5}% 26
+\BOOKMARK [1][-]{section.2}{Methods}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Environment}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{SARSA and Q-LearningAnswer to task 1.}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Temporal-Difference Algorithms}{subsection.2.2}% 5
+\BOOKMARK [3][-]{subsubsection.2.2.2}{On-policy vs. Off-policy}{subsection.2.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Advangages and Disadvantages}{subsection.2.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{Experience ReplayAnswer to ``group only'' task 2.}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Deep Q-Networks \(DQN\)Answer to task 5: Describing the used method.}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.5}{Experiments}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.6}{Implementation and Hyper-parameters}{section.2}% 11
+\BOOKMARK [1][-]{section.3}{Results}{}% 12
+\BOOKMARK [2][-]{subsection.3.1}{Seeded RunsAnswer to task 3 \(SARSA and Q-Learning as additional algorithm\) and 5 \(DQN\).}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.2}{Simulation Study \(Non-seeded Runs\)}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.3}{Hyper-parametersAnswer to task 4.}{section.3}% 15
+\BOOKMARK [1][-]{section.4}{Conclusion}{}% 16
+\BOOKMARK [1][-]{section*.5}{References}{}% 17
+\BOOKMARK [1][-]{section.5}{Appendix}{}% 18
+\BOOKMARK [2][-]{subsubsection.5.0.1}{Reproducibility}{section.5}% 19

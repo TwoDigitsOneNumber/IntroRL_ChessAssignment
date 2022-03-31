@@ -16,73 +16,68 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{atari2013}
-\citation{dqn2015}
 \citation{sutton1984}
+\citation{sutton2018}
+\citation{dqn2015}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
 \newlabel{sec:introduction}{{I}{1}{Introduction}{section.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {I-A}}- describe general setting}{1}{subsection.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {I-B}}- touch on methods}{1}{subsection.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {I-C}}- touch on results and conclusion}{1}{subsection.1.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {II}Methods}{1}{section.2}\protected@file@percent }
 \newlabel{sec:methods}{{II}{1}{Methods}{section.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Environment}{1}{subsection.2.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}SARSA and Q-Learning\FN@sf@gobble@opt  {Answer to task 1.}}{1}{subsection.2.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-B}1}Temporal-Difference Algorithms}{1}{subsubsection.2.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-B}2}differences/what they have in common}{1}{subsubsection.2.2.2}\protected@file@percent }
-\citation{sutton2018}
-\citation{dqn2015}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-B}2}On-policy vs. Off-policy}{1}{subsubsection.2.2.2}\protected@file@percent }
 \citation{lin1992}
 \citation{atari2013,dqn2015}
 \citation{lin1992,atari2013}
 \citation{atari2013}
 \citation{atari2013}
 \citation{dqn2015}
+\citation{dqn2015}
 \citation{sutton2018}
 \citation{dqn2015}
 \citation{glorot2010}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-B}3}- advangages/disadvantages}{2}{subsubsection.2.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-B}3}Advangages and Disadvantages}{2}{subsubsection.2.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Experience Replay\FN@sf@gobble@opt  {Answer to ``group only'' task 2.}}{2}{subsection.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-D}}Deep Q-Networks (DQN)\FN@sf@gobble@opt  {Answer to task 5: Describing the used method.}}{2}{subsection.2.4}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-E}}Experiments}{2}{subsection.2.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-F}}Implementation and Hyper-parameters}{2}{subsection.2.6}\protected@file@percent }
 \newlabel{sec:implementation_hyper-parameters}{{\mbox  {II-F}}{2}{Implementation and Hyper-parameters}{subsection.2.6}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-F}1}Implementation}{2}{subsubsection.2.6.1}\protected@file@percent }
 \citation{atari2013,dqn2015}
 \citation{dqn2015}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {II-F}2}Hyper-Parameters}{3}{subsubsection.2.6.2}\protected@file@percent }
+\citation{glorot2010}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Common hyper-parameters shared by all algorithms.\relax }}{3}{table.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:hyper-parameters}{{I}{3}{Common hyper-parameters shared by all algorithms.\relax }{table.caption.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {III}Results}{3}{section.3}\protected@file@percent }
 \newlabel{sec:results}{{III}{3}{Results}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Seeded Runs\FN@sf@gobble@opt  {Answer to task 3 (SARSA and Q-Learning as additional algorithm) and 5 (DQN).}}{3}{subsection.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Exponential moving average of the rewards achieved during training. All three algorithms, Q-Learning, SARSA and DQN were initialized with identical weights and trained with identical network architecture and hyper-parameters.\relax }}{3}{figure.caption.1}\protected@file@percent }
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:rewards}{{1}{3}{Exponential moving average of the rewards achieved during training. All three algorithms, Q-Learning, SARSA and DQN were initialized with identical weights and trained with identical network architecture and hyper-parameters.\relax }{figure.caption.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces \leavevmode {\color  {red}caption}\relax }}{3}{figure.caption.2}\protected@file@percent }
-\newlabel{fig:n_moves}{{2}{3}{\textcolor {red}{caption}\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Exponential moving average of the rewards achieved during training for 100000 episodes with identical hyper-parameters, weight initialization and model architecture.\relax }}{3}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:rewards}{{1}{3}{Exponential moving average of the rewards achieved during training for 100000 episodes with identical hyper-parameters, weight initialization and model architecture.\relax }{figure.caption.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Exponential moving average of the number of moves per episode achieved during training for 100000 episodes with identical hyper-parameters, weight initialization and model architecture.\relax }}{3}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:n_moves}{{2}{3}{Exponential moving average of the number of moves per episode achieved during training for 100000 episodes with identical hyper-parameters, weight initialization and model architecture.\relax }{figure.caption.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Simulation Study (Non-seeded Runs)}{3}{subsection.3.2}\protected@file@percent }
 \bibstyle{./IEEEtran}
 \bibdata{./IEEEabrv,./Bibliography}
-\bibcite{atari2013}{1}
-\bibcite{dqn2015}{2}
-\bibcite{sutton1984}{3}
-\bibcite{sutton2018}{4}
-\bibcite{lin1992}{5}
+\bibcite{sutton1984}{1}
+\bibcite{sutton2018}{2}
+\bibcite{dqn2015}{3}
+\bibcite{lin1992}{4}
+\bibcite{atari2013}{5}
 \bibcite{glorot2010}{6}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Hyper-parameters}{4}{subsection.3.3}\protected@file@percent }
-\newlabel{sec:hyper-parameters}{{\mbox  {III-C}}{4}{Hyper-parameters}{subsection.3.3}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-C}1}gamma}{4}{subsubsection.3.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-C}2}beta}{4}{subsubsection.3.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Hyper-parameters\FN@sf@gobble@opt  {Answer to task 4.}}{4}{subsection.3.3}\protected@file@percent }
+\newlabel{sec:hyper-parameters}{{\mbox  {III-C}}{4}{Hyper-parameters\footnote {Answer to task 4.}}{subsection.3.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Conclusion}{4}{section.4}\protected@file@percent }
 \newlabel{sec:conclusion}{{IV}{4}{Conclusion}{section.4}{}}
-\@writefile{toc}{\contentsline {section}{References}{4}{section*.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces \relax }}{4}{figure.caption.3}\protected@file@percent }
-\newlabel{fig:hyper-parameters}{{3}{4}{\relax }{figure.caption.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {V}Appendix}{4}{section.5}\protected@file@percent }
-\newlabel{sec:reproducibility}{{\mbox  {V-}1}{4}{Reproducibility}{subsubsection.5.0.1}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {V-}1}Reproducibility}{4}{subsubsection.5.0.1}\protected@file@percent }
-\newlabel{code:neural_net}{{1}{4}{\textcolor {red}{caption}}{lstlisting.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}\leavevmode {\color  {red}caption}}{4}{lstlisting.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces \relax }}{5}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:30runs_reward}{{4}{5}{\relax }{figure.caption.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces \relax }}{5}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:30runs_n_moves}{{5}{5}{\relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Rewards and number of moves as functions of the the speed of the decaying trend $\beta $ and the discount factor $\gamma $ after training a SARSA agent for 40000 episodes.\relax }}{4}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:hyper-parameters}{{3}{4}{Rewards and number of moves as functions of the the speed of the decaying trend $\beta $ and the discount factor $\gamma $ after training a SARSA agent for 40000 episodes.\relax }{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {section}{References}{4}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Appendix}{5}{section.5}\protected@file@percent }
+\newlabel{sec:reproducibility}{{\mbox  {V-}1}{5}{Reproducibility}{subsubsection.5.0.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {V-}1}Reproducibility}{5}{subsubsection.5.0.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Expected moving averages (EMA) of the rewards per episode for 30 runs for each algorithm (SARSA, Q-Learning, DQN). The red line depicts the EMA of the average across the 30 runs.\relax }}{5}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:30runs_reward}{{4}{5}{Expected moving averages (EMA) of the rewards per episode for 30 runs for each algorithm (SARSA, Q-Learning, DQN). The red line depicts the EMA of the average across the 30 runs.\relax }{figure.caption.6}{}}
+\newlabel{code:neural_net}{{1}{5}{Object oriented implementation of the Neural Networks, which can be instantiated with specifications for the model architecture and a method: ``sarsa'', ``qlearning'' or ``dqn''. The training loop will adapt automatically}{lstlisting.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}Object oriented implementation of the Neural Networks, which can be instantiated with specifications for the model architecture and a method: ``sarsa'', ``qlearning'' or ``dqn''. The training loop will adapt automatically.}{5}{lstlisting.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Expected moving averages (EMA) of the number of moves per episode 30 runs for each algorithm (SARSA, Q-Learning, DQN). The red line depicts the EMA of the average across the 30 runs. The blue area depicts the EMA of the 1 standard deviation ($\sigma $) confidence interval (CI) of the 30 runs.\relax }}{5}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:30runs_n_moves}{{5}{5}{Expected moving averages (EMA) of the number of moves per episode 30 runs for each algorithm (SARSA, Q-Learning, DQN). The red line depicts the EMA of the average across the 30 runs. The blue area depicts the EMA of the 1 standard deviation ($\sigma $) confidence interval (CI) of the 30 runs.\relax }{figure.caption.7}{}}

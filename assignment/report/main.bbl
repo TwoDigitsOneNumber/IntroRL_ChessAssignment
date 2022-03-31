@@ -21,12 +21,14 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{atari2013}
+\bibitem{sutton1984}
+R.~S. Sutton, ``Temporal credit assignment in reinforcement learning,'' 1984.
+
+\bibitem{sutton2018}
 \BIBentryALTinterwordspacing
-V.~Mnih, K.~Kavukcuoglu, D.~Silver, A.~Graves, I.~Antonoglou, D.~Wierstra, and
-  M.~A. Riedmiller, ``Playing atari with deep reinforcement learning,''
-  \emph{CoRR}, vol. abs/1312.5602, 2013. [Online]. Available:
-  \url{http://arxiv.org/abs/1312.5602}
+R.~S. Sutton and A.~G. Barto, \emph{Reinforcement Learning: An Introduction},
+  2nd~ed.\hskip 1em plus 0.5em minus 0.4em\relax The MIT Press, 2018. [Online].
+  Available: \url{http://incompleteideas.net/book/the-book-2nd.html}
 \BIBentrySTDinterwordspacing
 
 \bibitem{dqn2015}
@@ -39,22 +41,20 @@ V.~Mnih, K.~Kavukcuoglu, D.~Silver, A.~A. Rusu, J.~Veness, M.~G. Bellemare,
   Available: \url{https://doi.org/10.1038/nature14236}
 \BIBentrySTDinterwordspacing
 
-\bibitem{sutton1984}
-R.~S. Sutton, ``Temporal credit assignment in reinforcement learning,'' 1984.
-
-\bibitem{sutton2018}
-\BIBentryALTinterwordspacing
-R.~S. Sutton and A.~G. Barto, \emph{Reinforcement Learning: An Introduction},
-  2nd~ed.\hskip 1em plus 0.5em minus 0.4em\relax The MIT Press, 2018. [Online].
-  Available: \url{http://incompleteideas.net/book/the-book-2nd.html}
-\BIBentrySTDinterwordspacing
-
 \bibitem{lin1992}
 \BIBentryALTinterwordspacing
 L.-J. Lin, ``Self-improving reactive agents based on reinforcement learning,
   planning and teaching,'' \emph{Mach. Learn.}, vol.~8, no. 3–4, p.
   293–321, may 1992. [Online]. Available:
   \url{https://doi.org/10.1007/BF00992699}
+\BIBentrySTDinterwordspacing
+
+\bibitem{atari2013}
+\BIBentryALTinterwordspacing
+V.~Mnih, K.~Kavukcuoglu, D.~Silver, A.~Graves, I.~Antonoglou, D.~Wierstra, and
+  M.~A. Riedmiller, ``Playing atari with deep reinforcement learning,''
+  \emph{CoRR}, vol. abs/1312.5602, 2013. [Online]. Available:
+  \url{http://arxiv.org/abs/1312.5602}
 \BIBentrySTDinterwordspacing
 
 \bibitem{glorot2010}
