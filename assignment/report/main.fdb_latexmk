@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex main"] 1648760895 "main.aux" "main.bbl" "main" 1648760966
+["bibtex main"] 1648761026 "main.aux" "main.bbl" "main" 1648761027
   "./Bibliography.bib" 1648665423 4513 637602b0fef62572277883fcc2c00891 ""
   "./IEEEabrv.bib" 1168508624 17841 d1b6e95678a4492b1a7c620153c6aba2 ""
   "./IEEEtran.bst" 1168508629 61632 1eded68932b68cdfaf04f54eba82634b ""
-  "main.aux" 1648760966 7506 564f6e085c560f8e2dc37e7ab2e7539e "pdflatex"
+  "main.aux" 1648761027 7622 922d003eabae0361e548fc2056f9d4bf "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
-["pdflatex"] 1648760966 "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.tex" "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.pdf" "main" 1648760966
+["pdflatex"] 1648761027 "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.tex" "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.pdf" "main" 1648761027
   "../code/helper_functions.py" 1648712403 3678 d5fb1d158aaded829080c319752169c2 ""
   "../code/neural_net.py" 1648754128 21041 06bc6291292a57b302010bebfad7e0c3 ""
   "../figures/ema_number_of_moves_per_episode_comparison.png" 1648757221 31925 2cf9986ffb034a43506ee080e990242d ""
@@ -15,8 +15,8 @@
   "../figures/sarsa_Number of Moves.png" 1648755826 42089 3573a83c600a441e676eef22cebcfbfb ""
   "../figures/sarsa_Reward.png" 1648755795 42472 d8830f86b30e08fb586dbc918ccca265 ""
   "/etc/texmf/web2c/texmf.cnf" 1629556471 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.aux" 1648760966 7506 564f6e085c560f8e2dc37e7ab2e7539e ""
-  "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.tex" 1648760966 26467 d3e3f4c92271566741b35de4b847917e ""
+  "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.aux" 1648761027 7622 922d003eabae0361e548fc2056f9d4bf ""
+  "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.tex" 1648761026 26491 8f226fd6edff274b96c023b76c5dfdf0 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -136,14 +136,14 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1629558601 4770781 1ed1abab22da9c3e2cc82e4db562318b ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1629558627 8255913 9768a8092b5cc3e2e6c16132d53c5111 ""
   "IEEEtran.cls" 1646824323 281957 5b2e4fa15b0f7eabb840ebf67df4c0f7 ""
-  "main.aux" 1648760966 7506 564f6e085c560f8e2dc37e7ab2e7539e "pdflatex"
-  "main.bbl" 1648760895 2739 6f4cf12c4b68dba681a0098274dd9ade "bibtex main"
-  "main.out" 1648760966 1415 9d51688ea5d53da629ddf34bdb49fe94 "pdflatex"
-  "main.tex" 1648760966 26467 d3e3f4c92271566741b35de4b847917e ""
+  "main.aux" 1648761027 7622 922d003eabae0361e548fc2056f9d4bf "pdflatex"
+  "main.bbl" 1648761027 2739 6f4cf12c4b68dba681a0098274dd9ade "bibtex main"
+  "main.out" 1648761027 1473 d7785ea803630a61615f104463f19a1b "pdflatex"
+  "main.tex" 1648761026 26491 8f226fd6edff274b96c023b76c5dfdf0 ""
   (generated)
-  "main.log"
   "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.log"
+  "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.pdf"
   "main.aux"
   "main.pdf"
-  "/home/laurin/Documents/UZH/2022_spring/IntroRL/assignment/report/main.pdf"
   "main.out"
+  "main.log"
